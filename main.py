@@ -131,6 +131,10 @@ class SubtitleApp(MainWindow):
                         cursor.movePosition(cursor.MoveOperation.Down)
                     self.subtitle_content.setTextCursor(cursor)
                     self.subtitle_content.ensureCursorVisible()
+
+                    # Scroll down by one page
+                    scrollbar = self.subtitle_content.verticalScrollBar()
+                    scrollbar.setValue(scrollbar.value() + scrollbar.pageStep())
                     break
 
     def srt_time_to_seconds(self, time_str):
