@@ -12,11 +12,13 @@ class SettingsDialog(QDialog):
         self.layout = QVBoxLayout(self)
 
         self.form_layout = QFormLayout()
+        self.user_agent_input = QLineEdit()
         self.api_key_input = QLineEdit()
         self.username_input = QLineEdit()
         self.password_input = QLineEdit()
         self.password_input.setEchoMode(QLineEdit.EchoMode.Password)
 
+        self.form_layout.addRow("User-Agent:", self.user_agent_input)
         self.form_layout.addRow("API Key:", self.api_key_input)
         self.form_layout.addRow("Username (optional):", self.username_input)
         self.form_layout.addRow("Password (optional):", self.password_input)
@@ -31,12 +33,14 @@ class SettingsDialog(QDialog):
 
     def get_settings(self):
         return {
+            "user_agent": self.user_agent_input.text(),
             "api_key": self.api_key_input.text(),
             "username": self.username_input.text(),
             "password": self.password_input.text(),
         }
 
     def set_settings(self, settings):
+        self.user_agent_input.setText(settings.get("user_agent", ""))
         self.api_key_input.setText(settings.get("api_key", ""))
         self.username_input.setText(settings.get("username", ""))
         self.password_input.setText(settings.get("password", ""))

@@ -28,14 +28,17 @@ class SubtitleApp(MainWindow):
 
     def init_opensubtitles(self):
         api_key = self.settings.get("api_key")
-        if api_key:
+        user_agent = self.settings.get("user_agent")
+
+        if api_key and user_agent:
             self.opensubtitles = OpenSubtitles(
                 api_key,
+                user_agent,
                 self.settings.get("username"),
                 self.settings.get("password")
             )
         else:
-            self.show_error("API key not set. Please set it in the settings.")
+            self.show_error("API key and User-Agent must be set in the settings.")
 
     def open_settings(self):
         dialog = SettingsDialog(self)
